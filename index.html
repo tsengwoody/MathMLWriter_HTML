@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Demo Page</title>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script language="javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+
+</script>
+</head>
+
+<body>
+    <button id="pm" class="btn btn-default btn-lg">\pm</button>
+    <button id="sqrt" class="btn btn-default btn-lg">\sqrt x</button>
+    <button id="frac" class="btn btn-default btn-lg">\frac{x}{y}</button>
+
+    <p class="test hide">Your test: $${\pi_{ij}}={\rm{R}}SBU_{ij}^L-{\rm{R}}SBU_{ij}^H={q_{ap}}(f_{ij}^L-f_{ij}^H)/{N_{ap}}.$$</p>
+    <p class="type-area">Type math here: <span id="math-field"></span></p>
+    <p class="export-latex-result">LaTeX of what you typed: <span id="latex"></span></p>
+    <p class="hide">This is <span id="problem">ax^2 + bx + c = 0</span>.</p>
+    <script>
+    var mathFieldSpan = document.getElementById('math-field');
+    var latexSpan = document.getElementById('latex');
+    var problemSpan = document.getElementById('problem');
+    // Math operator
+    var pm = document.getElementById('pm');
+    var sqrt = document.getElementById('sqrt');
+    var frac = document.getElementById('frac');
+
+    var MQ = MathQuill.getInterface(2);
+    var mathField = MQ.MathField(mathFieldSpan, {
+        spaceBehavesLikeTab: true, // configurable
+        handlers: {
+            edit: function() { // useful event handlers
+                latexSpan.textContent = mathField.latex(); // simple API
+            }
+        }
+    });
+    pm.onclick = function() {
+        // mathField.typedText('x=-b\\pm \\sqrt b^2 -4ac');
+        mathField.typedText('\\pm ');
+        mathField.focus();
+    };
+    sqrt.onclick = function() {
+        mathField.typedText('\\sqrt ');
+        mathField.focus();
+    };
+    frac.onclick = function() {
+        mathField.typedText('\\frac ');
+        mathField.focus();
+    };
+
+    MQ.StaticMath(problemSpan);
+    MQ.StaticMath(pm);
+    MQ.StaticMath(sqrt);
+    MQ.StaticMath(frac);
+    </script>
+</body>
+
+</html>
